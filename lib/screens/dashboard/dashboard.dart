@@ -449,7 +449,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 
   Widget slider() {
-    return Slider(
+    return Slider.adaptive(
       min: 0.0,
       max: duration.inSeconds.toDouble(),
       value: position.inSeconds.toDouble(),
