@@ -536,6 +536,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 
   Future<void> getAudio() async {
+    print('the player status is $playing');
     String url =
         'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3';
     if (playing == PlayerState.playing) {
@@ -544,10 +545,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       });
       await audioPlayer.pause();
     } else {
+      try {
+        await audioPlayer.play(UrlSource(url));
+      } catch (e) {
+        print("-------->>>>>>> $e");
+      }
       setState(() {
         playing = PlayerState.playing;
       });
-      await audioPlayer.play(UrlSource(url));
     }
+    print('the post player status is $playing');
   }
 }
