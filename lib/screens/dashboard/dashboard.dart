@@ -29,6 +29,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   PlayerState playing = PlayerState.stopped;
+  bool isLooped = false;
+  bool isShuffled = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -55,7 +57,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     audioPlayer.dispose();
     super.dispose();
   }
@@ -226,31 +227,66 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      getAudio();
-                                    },
-                                    child: SizedBox(
-                                      height: 50,
-                                      width: 50,
-                                      child: playing == PlayerState.playing
-                                          ? const Icon(
-                                              Icons.pause_circle_outline_sharp,
-                                              color: Colors.white,
-                                              size: 58,
-                                            )
-                                          : playing == PlayerState.paused ||
-                                                  playing ==
-                                                      PlayerState.stopped ||
-                                                  playing ==
-                                                      PlayerState.completed
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            isShuffled = !isShuffled;
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.shuffle,
+                                          color: isShuffled
+                                              ? Colors.green
+                                              : Colors.white,
+                                          size: 38,
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          getAudio();
+                                        },
+                                        child: SizedBox(
+                                          height: 50,
+                                          width: 50,
+                                          child: playing == PlayerState.playing
                                               ? const Icon(
-                                                  Icons.play_arrow_rounded,
+                                                  Icons
+                                                      .pause_circle_outline_sharp,
                                                   color: Colors.white,
                                                   size: 58,
                                                 )
-                                              : null,
-                                    ),
+                                              : playing == PlayerState.paused ||
+                                                      playing ==
+                                                          PlayerState.stopped ||
+                                                      playing ==
+                                                          PlayerState.completed
+                                                  ? const Icon(
+                                                      Icons.play_arrow_rounded,
+                                                      color: Colors.white,
+                                                      size: 58,
+                                                    )
+                                                  : null,
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            isLooped = !isLooped;
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.loop_sharp,
+                                          color: isLooped
+                                              ? Colors.green
+                                              : Colors.white,
+                                          size: 38,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -449,15 +485,54 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 
   Widget slider() {
-    return Slider.adaptive(
-      min: 0.0,
-      max: duration.inSeconds.toDouble(),
-      value: position.inSeconds.toDouble(),
-      onChanged: (value) async {
-        final position = Duration(seconds: value.toInt());
-        await audioPlayer.seek(position);
-      },
+    return Column(
+      children: [
+        Slider(
+          min: 0.0,
+          max: duration.inSeconds.toDouble(),
+          value: position.inSeconds.toDouble(),
+          onChanged: (value) async {
+            final position = Duration(seconds: value.toInt());
+            await audioPlayer.seek(position);
+          },
+        ),
+        SizedBox(
+          height: mediaPlayerTappedOpen ? 10 : 0,
+        ),
+        mediaPlayerTappedOpen
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    formatTime(position),
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    formatTime(duration - position),
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              )
+            : Container(),
+      ],
     );
+  }
+
+  String formatTime(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(duration.inHours);
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+
+    return [
+      if (duration.inHours > 0) hours,
+      minutes,
+      seconds,
+    ].join(':');
   }
 
   Future<void> getAudio() async {
