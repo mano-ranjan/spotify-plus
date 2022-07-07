@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -9,6 +10,24 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   bool isSearchBarTapped = false;
+  var _instance;
+  var data;
+
+  Future<void> getFirebaseSongUrl() async {
+    _instance = FirebaseFirestore.instance;
+    CollectionReference urls = _instance!.collection('artist');
+    DocumentSnapshot snapshot = await urls.doc('KcHTxqHAaKmNpRjfUq6o').get();
+    data = snapshot.data() as Map;
+    print(data);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getFirebaseSongUrl();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,6 +130,21 @@ class _SearchScreenState extends State<SearchScreen> {
                   const SizedBox(
                     height: 20,
                   ),
+                  // StreamBuilder(
+                  //   stream: FirebaseFirestore.instance
+                  //       .collection('artist/KcHTxqHAaKmNpRjfUq6o/')
+                  //       .snapshots(),
+                  //   builder: (context, snapshot) {
+                  //     if (!snapshot.hasData) {
+                  //       return Text('Loading data please wait');
+                  //     }
+                  //     return Column(
+                  //       children: [
+                  //         Text(snapshot.data!.docs[0]['artistEmailId']),
+                  //       ],
+                  //     );
+                  //   },
+                  // )
                 ],
               ),
       ),

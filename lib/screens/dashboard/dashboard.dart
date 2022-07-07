@@ -31,13 +31,21 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   PlayerState playing = PlayerState.stopped;
   bool isLooped = false;
   bool isShuffled = false;
+
   @override
   void initState() {
     // TODO: implement initState
 
-    audioPlayer.onDurationChanged.listen((event) {
+    audioPlayer.onPlayerStateChanged.listen((event) {
       setState(() {
-        duration = event;
+        playing = event;
+      });
+    });
+
+    audioPlayer.onDurationChanged.listen((Duration newDuration) {
+      print('the duration is ${newDuration.inSeconds}');
+      setState(() {
+        duration = newDuration;
       });
     });
 
@@ -51,6 +59,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       setState(() {
         playing = PlayerState.completed;
       });
+      if (isLooped) {
+        getAudio();
+      }
     });
     super.initState();
   }
@@ -510,7 +521,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ),
                   ),
                   Text(
-                    formatTime(duration - position),
+                    formatTime(duration),
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -537,8 +548,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   Future<void> getAudio() async {
     print('the player status is $playing');
-    String url =
-        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3';
+    String url = 'https://www2.cs.uic.edu/~i101/SoundFiles/PinkPanther60.wav';
     if (playing == PlayerState.playing) {
       setState(() {
         playing = PlayerState.paused;
