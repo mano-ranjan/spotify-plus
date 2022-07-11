@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:spotify_app/utils/constants/colors.dart';
 
@@ -25,7 +24,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     // getFirebaseSongUrl();
     super.initState();
   }
@@ -42,7 +40,6 @@ class _SearchScreenState extends State<SearchScreen> {
             ? SizedBox(
                 child: InkWell(
                   onTap: () {
-                    print(isSearchBarTapped);
                     setState(() {
                       isSearchBarTapped = false;
                     });

@@ -109,7 +109,7 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
                               width: 80,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Colors.grey,
+                                  color: SpotifyPlusColors().pureGrey,
                                 ),
                                 // borderRadius: BorderRadius.circular(46),
                               ),

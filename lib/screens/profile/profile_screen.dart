@@ -21,8 +21,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const BackButton(
-                color: Colors.transparent,
+              BackButton(
+                color: SpotifyPlusColors().transparent,
               ),
               Icon(
                 Icons.more_horiz,
@@ -40,9 +40,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: SpotifyPlusColors().greyShade900,
               borderRadius: BorderRadius.circular(86),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.person_outline_sharp,
-              color: Colors.grey,
+              color: SpotifyPlusColors().pureGrey,
               size: 100,
             ),
           ),
@@ -96,10 +96,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
+                  Text(
                     'FOLLOWERS',
-                    style: const TextStyle(
-                      color: Colors.grey,
+                    style: TextStyle(
+                      color: SpotifyPlusColors().pureGrey,
                     ),
                   )
                 ],
@@ -115,10 +115,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
+                  Text(
                     'FOLLOWING',
-                    style: const TextStyle(
-                      color: Colors.grey,
+                    style: TextStyle(
+                      color: SpotifyPlusColors().pureGrey,
                     ),
                   )
                 ],
@@ -150,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     height: 60,
                     width: 60,
-                    color: Colors.amber,
+                    color: SpotifyPlusColors().pureAmber,
                   ),
                   const SizedBox(
                     width: 10,
@@ -167,10 +167,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text(
+                      Text(
                         '0 likes',
-                        style: const TextStyle(
-                          color: Colors.grey,
+                        style: TextStyle(
+                          color: SpotifyPlusColors().pureGrey,
                         ),
                       )
                     ],

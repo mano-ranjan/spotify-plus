@@ -25,9 +25,13 @@ class _SpotifyPlusButtonState extends State<SpotifyPlusButton> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: istapped ? Colors.green : Colors.transparent,
+          color: istapped
+              ? SpotifyPlusColors().pureGreen
+              : SpotifyPlusColors().transparent,
           border: Border.all(
-            color: istapped ? Colors.green.shade700 : Colors.grey,
+            color: istapped
+                ? SpotifyPlusColors().greenShade700
+                : SpotifyPlusColors().pureGrey,
           ),
           borderRadius: BorderRadius.circular(
             36,

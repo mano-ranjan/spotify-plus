@@ -32,7 +32,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       height: 40,
                       width: 40,
                       decoration: BoxDecoration(
-                        color: Colors.amber,
+                        color: SpotifyPlusColors().pureAmber,
                         borderRadius: BorderRadius.circular(36),
                       ),
                       child: Center(
@@ -82,14 +82,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
               height: 20,
             ),
             Row(
-              children: [
-                const SpotifyPlusButton(
+              children: const [
+                SpotifyPlusButton(
                   buttonText: 'Playlists',
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 10,
                 ),
-                const SpotifyPlusButton(
+                SpotifyPlusButton(
                   buttonText: 'Artists',
                 ),
               ],
@@ -170,7 +170,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                   Container(
                                     height: 180,
                                     width: 190,
-                                    color: Colors.red,
+                                    color: SpotifyPlusColors().pureRed,
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -187,12 +187,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  const Align(
+                                  Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Playlist . Spotify',
                                       style: TextStyle(
-                                        color: Colors.grey,
+                                        color: SpotifyPlusColors().pureGrey,
                                       ),
                                     ),
                                   ),
@@ -213,7 +213,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                   Container(
                                     height: 80,
                                     width: 80,
-                                    color: Colors.amber,
+                                    color: SpotifyPlusColors().pureAmber,
                                   ),
                                   const SizedBox(
                                     width: 10,
@@ -233,11 +233,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      const Text(
+                                      Text(
                                         'Top Gaming Tracks',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 14,
-                                          color: Colors.grey,
+                                          color: SpotifyPlusColors().pureGrey,
                                         ),
                                       )
                                     ],

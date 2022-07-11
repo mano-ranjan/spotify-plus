@@ -4,16 +4,16 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:marquee/marquee.dart';
+import 'package:spotify_app/components/slider.dart';
 import 'package:spotify_app/screens/dashboard/widgets/dashboard_deault_screen.dart';
 import 'package:spotify_app/screens/library_screens/library_screen.dart';
 import 'package:spotify_app/screens/profile/profile_screen.dart';
 import 'package:spotify_app/screens/search_screen/search_screen.dart';
 
 import 'package:spotify_app/utils/constants/colors.dart';
-import 'package:spotify_app/utils/validators/time_formatter.dart';
 
 class DashBoardScreen extends StatefulWidget {
-  DashBoardScreen({Key? key}) : super(key: key);
+  const DashBoardScreen({Key? key}) : super(key: key);
 
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();
@@ -37,8 +37,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     audioPlayer.onPlayerStateChanged.listen((event) {
       setState(() {
         playing = event;
@@ -46,7 +44,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     });
 
     audioPlayer.onDurationChanged.listen((Duration newDuration) {
-      print('the duration is ${newDuration.inSeconds}');
       setState(() {
         duration = newDuration;
       });
@@ -100,9 +97,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           alignment: Alignment.center,
           children: [
             searchSelected
-                ? SearchScreen()
+                ? const SearchScreen()
                 : librarySelected
-                    ? LibraryScreen()
+                    ? const LibraryScreen()
                     : profileSelected
                         ? const ProfileScreen()
                         : const DashBoardDefaultScreen(),
@@ -229,8 +226,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                               ? Icons.favorite
                                               : Icons.favorite_border_sharp,
                                           color: mediaPlayerSongFav
-                                              ? Colors.red
-                                              : Colors.grey[500],
+                                              ? SpotifyPlusColors().pureRed
+                                              : SpotifyPlusColors()
+                                                  .greyShade500,
                                           size: 32,
                                         ),
                                       ),
@@ -239,7 +237,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  slider(),
+                                  SpotifySlider(
+                                    audioPlayer: audioPlayer,
+                                    duration: duration,
+                                    mediaPlayerTappedOpen:
+                                        mediaPlayerTappedOpen,
+                                    position: position,
+                                  ),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -256,7 +260,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                         child: Icon(
                                           Icons.shuffle,
                                           color: isShuffled
-                                              ? Colors.green
+                                              ? SpotifyPlusColors().pureGreen
                                               : SpotifyPlusColors().pureWhite,
                                           size: 38,
                                         ),
@@ -299,7 +303,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                         child: Icon(
                                           Icons.loop_sharp,
                                           color: isLooped
-                                              ? Colors.green
+                                              ? SpotifyPlusColors().pureGreen
                                               : SpotifyPlusColors().pureWhite,
                                           size: 38,
                                         ),
@@ -406,7 +410,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       ),
                                     ],
                                   ),
-                                  slider(),
+                                  SpotifySlider(
+                                    audioPlayer: audioPlayer,
+                                    duration: duration,
+                                    mediaPlayerTappedOpen:
+                                        mediaPlayerTappedOpen,
+                                    position: position,
+                                  ),
                                 ],
                               ),
                             ),
@@ -426,10 +436,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     height: 80.0,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
-                        topLeft: const Radius.circular(18),
-                        topRight: const Radius.circular(18),
+                        topLeft: Radius.circular(18),
+                        topRight: Radius.circular(18),
                       ),
-                      color: Colors.grey.shade900.withOpacity(0.5),
+                      color: SpotifyPlusColors().greyShade900.withOpacity(0.5),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -445,7 +455,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           },
                           child: Icon(
                             Icons.home_outlined,
-                            color: homeSelected ? Colors.green : Colors.grey,
+                            color: homeSelected
+                                ? SpotifyPlusColors().pureGreen
+                                : SpotifyPlusColors().pureGrey,
                             size: 32,
                           ),
                         ),
@@ -460,7 +472,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           },
                           child: Icon(
                             Icons.search_outlined,
-                            color: searchSelected ? Colors.green : Colors.grey,
+                            color: searchSelected
+                                ? SpotifyPlusColors().pureGreen
+                                : SpotifyPlusColors().pureGrey,
                             size: 32,
                           ),
                         ),
@@ -475,7 +489,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           },
                           child: Icon(
                             Icons.library_add_check_outlined,
-                            color: librarySelected ? Colors.green : Colors.grey,
+                            color: librarySelected
+                                ? SpotifyPlusColors().pureGreen
+                                : SpotifyPlusColors().pureGrey,
                             size: 32,
                           ),
                         ),
@@ -490,7 +506,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           },
                           child: Icon(
                             Icons.account_circle_outlined,
-                            color: profileSelected ? Colors.green : Colors.grey,
+                            color: profileSelected
+                                ? SpotifyPlusColors().pureGreen
+                                : SpotifyPlusColors().pureGrey,
                             size: 32,
                           ),
                         ),
@@ -506,46 +524,45 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     );
   }
 
-  Widget slider() {
-    return Column(
-      children: [
-        Slider(
-          min: 0.0,
-          max: duration.inSeconds.toDouble(),
-          value: position.inSeconds.toDouble(),
-          onChanged: (value) async {
-            final position = Duration(seconds: value.toInt());
-            await audioPlayer.seek(position);
-          },
-        ),
-        SizedBox(
-          height: mediaPlayerTappedOpen ? 10 : 0,
-        ),
-        mediaPlayerTappedOpen
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    Formatters().formatTime(position),
-                    style: TextStyle(
-                      color: SpotifyPlusColors().pureWhite,
-                    ),
-                  ),
-                  Text(
-                    Formatters().formatTime(duration),
-                    style: TextStyle(
-                      color: SpotifyPlusColors().pureWhite,
-                    ),
-                  ),
-                ],
-              )
-            : Container(),
-      ],
-    );
-  }
+  // Widget slider() {
+  //   return Column(
+  //     children: [
+  //       Slider(
+  //         min: 0.0,
+  //         max: duration.inSeconds.toDouble(),
+  //         value: position.inSeconds.toDouble(),
+  //         onChanged: (value) async {
+  //           final position = Duration(seconds: value.toInt());
+  //           await audioPlayer.seek(position);
+  //         },
+  //       ),
+  //       SizedBox(
+  //         height: mediaPlayerTappedOpen ? 10 : 0,
+  //       ),
+  //       mediaPlayerTappedOpen
+  //           ? Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 Text(
+  //                   Formatters().formatTime(position),
+  //                   style: TextStyle(
+  //                     color: SpotifyPlusColors().pureWhite,
+  //                   ),
+  //                 ),
+  //                 Text(
+  //                   Formatters().formatTime(duration),
+  //                   style: TextStyle(
+  //                     color: SpotifyPlusColors().pureWhite,
+  //                   ),
+  //                 ),
+  //               ],
+  //             )
+  //           : Container(),
+  //     ],
+  //   );
+  // }
 
   Future<void> getAudio() async {
-    print('the player status is $playing');
     String url = 'https://www2.cs.uic.edu/~i101/SoundFiles/PinkPanther60.wav';
     if (playing == PlayerState.playing) {
       setState(() {
@@ -553,15 +570,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       });
       await audioPlayer.pause();
     } else {
-      try {
-        await audioPlayer.play(UrlSource(url));
-      } catch (e) {
-        print("-------->>>>>>> $e");
-      }
+      await audioPlayer.play(UrlSource(url));
       setState(() {
         playing = PlayerState.playing;
       });
     }
-    print('the post player status is $playing');
   }
 }
