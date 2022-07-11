@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/screens/library_screens/widgets/buttons.dart';
 
+import 'package:spotify_app/utils/constants/colors.dart';
+
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
 
@@ -13,7 +15,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[900],
+      color: SpotifyPlusColors().greyShade900,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -33,11 +35,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         color: Colors.amber,
                         borderRadius: BorderRadius.circular(36),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           'M',
                           style: TextStyle(
-                            color: Colors.black,
+                            color: SpotifyPlusColors().pureBlack,
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -47,29 +49,29 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     const SizedBox(
                       width: 10,
                     ),
-                    const Text(
+                    Text(
                       'Your Library',
                       style: TextStyle(
                         fontSize: 24,
-                        color: Colors.white,
+                        color: SpotifyPlusColors().pureWhite,
                         fontWeight: FontWeight.bold,
                       ),
                     )
                   ],
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Icon(
                       Icons.search,
-                      color: Colors.white,
+                      color: SpotifyPlusColors().pureWhite,
                       size: 38,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Icon(
                       Icons.add,
-                      color: Colors.white,
+                      color: SpotifyPlusColors().pureWhite,
                       size: 38,
                     )
                   ],
@@ -80,14 +82,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
               height: 20,
             ),
             Row(
-              children: const [
-                SpotifyPlusButton(
+              children: [
+                const SpotifyPlusButton(
                   buttonText: 'Playlists',
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                SpotifyPlusButton(
+                const SpotifyPlusButton(
                   buttonText: 'Artists',
                 ),
               ],
@@ -104,14 +106,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       onTap: () {},
                       child: SizedBox(
                         child: Row(
-                          children: const [
+                          children: [
                             Icon(
                               Icons.arrow_downward,
-                              color: Colors.white,
+                              color: SpotifyPlusColors().pureWhite,
                             ),
                             Icon(
                               Icons.arrow_upward,
-                              color: Colors.white,
+                              color: SpotifyPlusColors().pureWhite,
                             ),
                           ],
                         ),
@@ -120,10 +122,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     const SizedBox(
                       width: 10,
                     ),
-                    const Text(
+                    Text(
                       'Most recent',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: SpotifyPlusColors().pureWhite,
                       ),
                     ),
                   ],
@@ -138,7 +140,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     isExpanded
                         ? Icons.zoom_in_map_sharp
                         : Icons.zoom_out_map_sharp,
-                    color: Colors.white,
+                    color: SpotifyPlusColors().pureWhite,
                   ),
                 )
               ],
@@ -146,107 +148,111 @@ class _LibraryScreenState extends State<LibraryScreen> {
             const SizedBox(
               height: 20,
             ),
-            isExpanded
-                ? SizedBox(
-                    height: MediaQuery.of(context).size.height - 285,
-                    child: GridView.builder(
-                        itemCount: 10,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 1 / 1.25,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          crossAxisCount: 2,
-                        ),
-                        itemBuilder: (BuildContext context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 180,
-                                  width: 190,
-                                  color: Colors.red,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Playlist Name',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
+            AnimatedContainer(
+              duration: const Duration(seconds: 10),
+              child: isExpanded
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height - 285,
+                      child: GridView.builder(
+                          itemCount: 10,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 1 / 1.25,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            crossAxisCount: 2,
+                          ),
+                          itemBuilder: (BuildContext context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 180,
+                                    width: 190,
+                                    color: Colors.red,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Playlist . Spotify',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
+                                  const SizedBox(
+                                    height: 10,
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-                  )
-                : SizedBox(
-                    height: MediaQuery.of(context).size.height - 285,
-                    child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, index) {
-                        return Column(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  height: 80,
-                                  width: 80,
-                                  color: Colors.amber,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      'Top Gaming Tracks',
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Playlist Name',
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                                        color: SpotifyPlusColors().pureWhite,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Top Gaming Tracks',
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Playlist . Spotify',
                                       style: TextStyle(
-                                        fontSize: 14,
                                         color: Colors.grey,
                                       ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        );
-                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                    )
+                  : SizedBox(
+                      height: MediaQuery.of(context).size.height - 285,
+                      child: ListView.builder(
+                        itemCount: 10,
+                        itemBuilder: (BuildContext context, index) {
+                          return Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 80,
+                                    width: 80,
+                                    color: Colors.amber,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Top Gaming Tracks',
+                                        style: TextStyle(
+                                          color: SpotifyPlusColors().pureWhite,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      const Text(
+                                        'Top Gaming Tracks',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  )
+            )
           ],
         ),
       ),

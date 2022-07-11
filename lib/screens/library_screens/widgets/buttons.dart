@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/utils/constants/colors.dart';
 
 class SpotifyPlusButton extends StatefulWidget {
   final String buttonText;
@@ -39,8 +40,8 @@ class _SpotifyPlusButtonState extends State<SpotifyPlusButton> {
             ),
             child: Text(
               widget.buttonText,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: SpotifyPlusColors().pureWhite,
                 fontSize: 16,
               ),
             ),

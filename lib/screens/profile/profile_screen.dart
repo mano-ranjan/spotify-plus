@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:spotify_app/utils/constants/colors.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -18,13 +20,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              BackButton(
+            children: [
+              const BackButton(
                 color: Colors.transparent,
               ),
               Icon(
                 Icons.more_horiz,
-                color: Colors.white,
+                color: SpotifyPlusColors().pureWhite,
               ),
             ],
           ),
@@ -35,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 150,
             width: 150,
             decoration: BoxDecoration(
-              color: Colors.grey[900],
+              color: SpotifyPlusColors().greyShade900,
               borderRadius: BorderRadius.circular(86),
             ),
             child: const Icon(
@@ -47,10 +49,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(
             height: 20,
           ),
-          const Text(
+          Text(
             'manoranjan kumar',
             style: TextStyle(
-              color: Colors.white,
+              color: SpotifyPlusColors().pureWhite,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -63,15 +65,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             width: 120,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.white,
+                color: SpotifyPlusColors().pureWhite,
               ),
               borderRadius: BorderRadius.circular(24),
             ),
-            child: const Center(
+            child: Center(
               child: Text(
                 'Edit profile',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: SpotifyPlusColors().pureWhite,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -84,38 +86,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
-                children: const [
+                children: [
                   Text(
                     '0',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: SpotifyPlusColors().pureWhite,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     'FOLLOWERS',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.grey,
                     ),
                   )
                 ],
               ),
               Column(
-                children: const [
+                children: [
                   Text(
                     '0',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: SpotifyPlusColors().pureWhite,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     'FOLLOWING',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.grey,
                     ),
                   )
@@ -126,12 +128,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(
             height: 20,
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Text(
               'Playlists',
               style: TextStyle(
-                color: Colors.white,
+                color: SpotifyPlusColors().pureWhite,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -155,19 +157,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'playlist_name',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: SpotifyPlusColors().pureWhite,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      Text(
+                      const Text(
                         '0 likes',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                         ),
                       )
@@ -175,9 +177,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   )
                 ],
               ),
-              const Icon(
+              Icon(
                 Icons.arrow_forward_ios_sharp,
-                color: Colors.white,
+                color: SpotifyPlusColors().pureWhite,
               )
             ],
           )

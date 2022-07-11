@@ -9,8 +9,11 @@ import 'package:spotify_app/screens/library_screens/library_screen.dart';
 import 'package:spotify_app/screens/profile/profile_screen.dart';
 import 'package:spotify_app/screens/search_screen/search_screen.dart';
 
+import 'package:spotify_app/utils/constants/colors.dart';
+import 'package:spotify_app/utils/validators/time_formatter.dart';
+
 class DashBoardScreen extends StatefulWidget {
-  const DashBoardScreen({Key? key}) : super(key: key);
+  DashBoardScreen({Key? key}) : super(key: key);
 
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();
@@ -75,19 +78,19 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: SpotifyPlusColors().pureBlack,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         toolbarHeight: 0,
-        backgroundColor: Colors.black,
+        backgroundColor: SpotifyPlusColors().pureBlack,
       ),
       body: SafeArea(
           child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.grey.shade700,
-              Colors.black,
+              SpotifyPlusColors().greyShade700,
+              SpotifyPlusColors().pureBlack,
             ],
             begin: FractionalOffset.topCenter,
             end: FractionalOffset.center,
@@ -97,9 +100,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           alignment: Alignment.center,
           children: [
             searchSelected
-                ? const SearchScreen()
+                ? SearchScreen()
                 : librarySelected
-                    ? const LibraryScreen()
+                    ? LibraryScreen()
                     : profileSelected
                         ? const ProfileScreen()
                         : const DashBoardDefaultScreen(),
@@ -127,8 +130,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         : MediaQuery.of(context).size.width - 20,
                     decoration: BoxDecoration(
                       color: mediaPlayerTappedOpen
-                          ? Colors.grey[900]
-                          : Colors.grey[850],
+                          ? SpotifyPlusColors().greyShade900
+                          : SpotifyPlusColors().greyShade850,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: mediaPlayerTappedOpen
@@ -153,22 +156,22 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                             mediaPlayerTappedOpen = false;
                                           });
                                         },
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.keyboard_arrow_down_sharp,
                                           size: 28,
-                                          color: Colors.white,
+                                          color: SpotifyPlusColors().pureWhite,
                                         ),
                                       ),
-                                      const Text(
+                                      Text(
                                         'mano',
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          color: SpotifyPlusColors().pureWhite,
                                           fontSize: 18,
                                         ),
                                       ),
-                                      const Icon(
+                                      Icon(
                                         Icons.more_horiz_sharp,
-                                        color: Colors.white,
+                                        color: SpotifyPlusColors().pureWhite,
                                         size: 28,
                                       ),
                                     ],
@@ -194,21 +197,23 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: const [
+                                        children: [
                                           Text(
                                             'Blinding Lights',
                                             style: TextStyle(
                                                 fontSize: 24,
-                                                color: Colors.white,
+                                                color: SpotifyPlusColors()
+                                                    .pureWhite,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             'mano',
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(
+                                                color: SpotifyPlusColors()
+                                                    .pureWhite),
                                           )
                                         ],
                                       ),
@@ -252,7 +257,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           Icons.shuffle,
                                           color: isShuffled
                                               ? Colors.green
-                                              : Colors.white,
+                                              : SpotifyPlusColors().pureWhite,
                                           size: 38,
                                         ),
                                       ),
@@ -264,10 +269,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           height: 50,
                                           width: 50,
                                           child: playing == PlayerState.playing
-                                              ? const Icon(
+                                              ? Icon(
                                                   Icons
                                                       .pause_circle_outline_sharp,
-                                                  color: Colors.white,
+                                                  color: SpotifyPlusColors()
+                                                      .pureWhite,
                                                   size: 58,
                                                 )
                                               : playing == PlayerState.paused ||
@@ -275,9 +281,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                           PlayerState.stopped ||
                                                       playing ==
                                                           PlayerState.completed
-                                                  ? const Icon(
+                                                  ? Icon(
                                                       Icons.play_arrow_rounded,
-                                                      color: Colors.white,
+                                                      color: SpotifyPlusColors()
+                                                          .pureWhite,
                                                       size: 58,
                                                     )
                                                   : null,
@@ -293,7 +300,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           Icons.loop_sharp,
                                           color: isLooped
                                               ? Colors.green
-                                              : Colors.white,
+                                              : SpotifyPlusColors().pureWhite,
                                           size: 38,
                                         ),
                                       ),
@@ -347,8 +354,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                   child: Marquee(
                                                     text: 'Blinding Lights ',
                                                     numberOfRounds: 1,
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
+                                                    style: TextStyle(
+                                                      color: SpotifyPlusColors()
+                                                          .pureWhite,
                                                     ),
                                                   ),
                                                 ),
@@ -356,10 +364,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                              const Text(
+                                              Text(
                                                 'mano',
                                                 style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: SpotifyPlusColors()
+                                                      .pureWhite,
                                                 ),
                                               ),
                                             ],
@@ -374,10 +383,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           height: 50,
                                           width: 50,
                                           child: playing == PlayerState.playing
-                                              ? const Icon(
+                                              ? Icon(
                                                   Icons
                                                       .pause_circle_outline_sharp,
-                                                  color: Colors.white,
+                                                  color: SpotifyPlusColors()
+                                                      .pureWhite,
                                                   size: 38,
                                                 )
                                               : playing == PlayerState.paused ||
@@ -385,9 +395,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                           PlayerState.stopped ||
                                                       playing ==
                                                           PlayerState.completed
-                                                  ? const Icon(
+                                                  ? Icon(
                                                       Icons.play_arrow_rounded,
-                                                      color: Colors.white,
+                                                      color: SpotifyPlusColors()
+                                                          .pureWhite,
                                                       size: 38,
                                                     )
                                                   : null,
@@ -415,8 +426,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     height: 80.0,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(18),
-                        topRight: Radius.circular(18),
+                        topLeft: const Radius.circular(18),
+                        topRight: const Radius.circular(18),
                       ),
                       color: Colors.grey.shade900.withOpacity(0.5),
                     ),
@@ -515,15 +526,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    formatTime(position),
-                    style: const TextStyle(
-                      color: Colors.white,
+                    Formatters().formatTime(position),
+                    style: TextStyle(
+                      color: SpotifyPlusColors().pureWhite,
                     ),
                   ),
                   Text(
-                    formatTime(duration),
-                    style: const TextStyle(
-                      color: Colors.white,
+                    Formatters().formatTime(duration),
+                    style: TextStyle(
+                      color: SpotifyPlusColors().pureWhite,
                     ),
                   ),
                 ],
@@ -531,19 +542,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             : Container(),
       ],
     );
-  }
-
-  String formatTime(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final hours = twoDigits(duration.inHours);
-    final minutes = twoDigits(duration.inMinutes.remainder(60));
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
-
-    return [
-      if (duration.inHours > 0) hours,
-      minutes,
-      seconds,
-    ].join(':');
   }
 
   Future<void> getAudio() async {

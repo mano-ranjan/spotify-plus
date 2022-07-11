@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/utils/constants/colors.dart';
 
 class PlayListCards extends StatefulWidget {
   final String playlistLabel;
@@ -19,15 +20,15 @@ class _PlayListCardsState extends State<PlayListCards> {
           children: [
             Text(
               widget.playlistLabel,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: SpotifyPlusColors().pureWhite,
               ),
             ),
-            const Icon(
+            Icon(
               Icons.arrow_forward_ios,
-              color: Colors.white,
+              color: SpotifyPlusColors().pureWhite,
               size: 18,
             )
           ],
@@ -63,9 +64,9 @@ class _PlayListCardsState extends State<PlayListCards> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
+                    Text(
                       'artist',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: SpotifyPlusColors().pureWhite),
                     )
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/screens/dashboard/widgets/playlist_cards_list.dart';
+import 'package:spotify_app/utils/constants/colors.dart';
 
 class DashBoardDefaultScreen extends StatefulWidget {
   const DashBoardDefaultScreen({Key? key}) : super(key: key);
@@ -29,22 +30,22 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'Hello Mano!',
                         style: TextStyle(
                           fontSize: 26,
-                          color: Colors.white,
+                          color: SpotifyPlusColors().pureWhite,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         "Let's listen to some music",
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.white,
+                          color: SpotifyPlusColors().pureWhite,
                         ),
                       ),
                     ],
@@ -57,11 +58,11 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
                     width: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(36),
-                      color: Colors.grey[900],
+                      color: SpotifyPlusColors().greyShade900,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.notifications_outlined,
-                      color: Colors.white,
+                      color: SpotifyPlusColors().pureWhite,
                       size: 22,
                     ),
                   ),
@@ -72,18 +73,18 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'Your favorite artist',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: SpotifyPlusColors().pureWhite,
                     ),
                   ),
                   Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.white,
+                    color: SpotifyPlusColors().pureWhite,
                     size: 18,
                   ),
                 ],
@@ -124,9 +125,11 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text(
+                          Text(
                             'artist',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: SpotifyPlusColors().pureWhite,
+                            ),
                           )
                         ],
                       ),

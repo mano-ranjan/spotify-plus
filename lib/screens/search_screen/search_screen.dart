@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:spotify_app/utils/constants/colors.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -13,25 +15,25 @@ class _SearchScreenState extends State<SearchScreen> {
   var _instance;
   var data;
 
-  Future<void> getFirebaseSongUrl() async {
-    _instance = FirebaseFirestore.instance;
-    CollectionReference urls = _instance!.collection('artist');
-    DocumentSnapshot snapshot = await urls.doc('KcHTxqHAaKmNpRjfUq6o').get();
-    data = snapshot.data() as Map;
-    print(data);
-  }
+  // Future<void> getFirebaseSongUrl() async {
+  //   _instance = FirebaseFirestore.instance;
+  //   CollectionReference urls = _instance!.collection('artist');
+  //   DocumentSnapshot snapshot = await urls.doc('KcHTxqHAaKmNpRjfUq6o').get();
+  //   data = snapshot.data() as Map;
+  //   print(data);
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
-    getFirebaseSongUrl();
+    // getFirebaseSongUrl();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[900],
+      color: SpotifyPlusColors().greyShade900,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -45,11 +47,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       isSearchBarTapped = false;
                     });
                   },
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'go back',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: SpotifyPlusColors().pureWhite,
                       ),
                     ),
                   ),
@@ -62,18 +64,18 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         'Search',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: SpotifyPlusColors().pureWhite,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Icon(
                         Icons.camera_alt_outlined,
-                        color: Colors.white,
+                        color: SpotifyPlusColors().pureWhite,
                         size: 28,
                       ),
                     ],
@@ -90,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: SpotifyPlusColors().pureWhite,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Padding(
@@ -116,12 +118,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Your top genres',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: SpotifyPlusColors().pureWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
