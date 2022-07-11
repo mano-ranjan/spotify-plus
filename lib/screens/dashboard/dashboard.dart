@@ -34,6 +34,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   PlayerState playing = PlayerState.stopped;
   bool isLooped = false;
   bool isShuffled = false;
+  bool isSongLoading = false;
 
   @override
   void initState() {
@@ -270,28 +271,36 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           getAudio();
                                         },
                                         child: SizedBox(
-                                          height: 50,
-                                          width: 50,
-                                          child: playing == PlayerState.playing
-                                              ? Icon(
-                                                  Icons
-                                                      .pause_circle_outline_sharp,
-                                                  color: SpotifyPlusColors()
-                                                      .pureWhite,
-                                                  size: 58,
-                                                )
-                                              : playing == PlayerState.paused ||
-                                                      playing ==
-                                                          PlayerState.stopped ||
-                                                      playing ==
-                                                          PlayerState.completed
+                                          height: 30,
+                                          width: 30,
+                                          child: isSongLoading
+                                              ? const CircularProgressIndicator()
+                                              : playing == PlayerState.playing
                                                   ? Icon(
-                                                      Icons.play_arrow_rounded,
+                                                      Icons
+                                                          .pause_circle_outline_sharp,
                                                       color: SpotifyPlusColors()
                                                           .pureWhite,
                                                       size: 58,
                                                     )
-                                                  : null,
+                                                  : playing ==
+                                                              PlayerState
+                                                                  .paused ||
+                                                          playing ==
+                                                              PlayerState
+                                                                  .stopped ||
+                                                          playing ==
+                                                              PlayerState
+                                                                  .completed
+                                                      ? Icon(
+                                                          Icons
+                                                              .play_arrow_rounded,
+                                                          color:
+                                                              SpotifyPlusColors()
+                                                                  .pureWhite,
+                                                          size: 58,
+                                                        )
+                                                      : null,
                                         ),
                                       ),
                                       InkWell(
@@ -524,44 +533,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     );
   }
 
-  // Widget slider() {
-  //   return Column(
-  //     children: [
-  //       Slider(
-  //         min: 0.0,
-  //         max: duration.inSeconds.toDouble(),
-  //         value: position.inSeconds.toDouble(),
-  //         onChanged: (value) async {
-  //           final position = Duration(seconds: value.toInt());
-  //           await audioPlayer.seek(position);
-  //         },
-  //       ),
-  //       SizedBox(
-  //         height: mediaPlayerTappedOpen ? 10 : 0,
-  //       ),
-  //       mediaPlayerTappedOpen
-  //           ? Row(
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 Text(
-  //                   Formatters().formatTime(position),
-  //                   style: TextStyle(
-  //                     color: SpotifyPlusColors().pureWhite,
-  //                   ),
-  //                 ),
-  //                 Text(
-  //                   Formatters().formatTime(duration),
-  //                   style: TextStyle(
-  //                     color: SpotifyPlusColors().pureWhite,
-  //                   ),
-  //                 ),
-  //               ],
-  //             )
-  //           : Container(),
-  //     ],
-  //   );
-  // }
-
   Future<void> getAudio() async {
     String url = 'https://www2.cs.uic.edu/~i101/SoundFiles/PinkPanther60.wav';
     if (playing == PlayerState.playing) {
@@ -570,8 +541,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       });
       await audioPlayer.pause();
     } else {
+      setState(() {
+        isSongLoading = true;
+      });
       await audioPlayer.play(UrlSource(url));
       setState(() {
+        isSongLoading = false;
         playing = PlayerState.playing;
       });
     }
