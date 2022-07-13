@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
+import 'package:spotify_app/services/get_otp.dart';
+import 'package:spotify_app/services/verify_otp.dart';
 
 import 'package:spotify_app/utils/constants/colors.dart';
 
@@ -13,17 +18,27 @@ class _SearchScreenState extends State<SearchScreen> {
   bool isSearchBarTapped = false;
   var _instance;
   var data;
+  TextEditingController otpController = TextEditingController();
+  String? songUrl;
 
   // Future<void> getFirebaseSongUrl() async {
   //   _instance = FirebaseFirestore.instance;
   //   CollectionReference urls = _instance!.collection('artist');
-  //   DocumentSnapshot snapshot = await urls.doc('KcHTxqHAaKmNpRjfUq6o').get();
+  //   DocumentSnapshot snapshot = await urls
+  //       .doc('KcHTxqHAaKmNpRjfUq6o')
+  //       .collection('songs')
+  //       .doc('2WxDje85TfnjMk5H7c1E')
+  //       .get();
   //   data = snapshot.data() as Map;
-  //   print(data);
+  //   setState(() {
+  //     songUrl = data['songAlbumCoverPicUrl'];
+  //   });
+  //   print(data['songAlbumCoverPicUrl']);
   // }
 
   @override
   void initState() {
+    GetMobileOtp().verifyPhone();
     // getFirebaseSongUrl();
     super.initState();
   }
@@ -129,6 +144,19 @@ class _SearchScreenState extends State<SearchScreen> {
                   const SizedBox(
                     height: 20,
                   ),
+
+                  TextField(
+                    controller: otpController,
+                  ),
+
+                  ElevatedButton(
+                    onPressed: () {
+                      Provider.of<MobileOtpLoginData>(context, listen: false)
+                          .updateVerCode(otpController.text);
+                      VerifyOtp().verifyOtp();
+                    },
+                    child: Text('login'),
+                  )
                   // StreamBuilder(
                   //   stream: FirebaseFirestore.instance
                   //       .collection('artist/KcHTxqHAaKmNpRjfUq6o/')

@@ -1,10 +1,14 @@
 import 'dart:ui';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:marquee/marquee.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify_app/components/slider.dart';
+import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
+import 'package:spotify_app/providers/songs_provider/songs_data.dart';
 import 'package:spotify_app/screens/dashboard/widgets/dashboard_deault_screen.dart';
 import 'package:spotify_app/screens/library_screens/library_screen.dart';
 import 'package:spotify_app/screens/profile/profile_screen.dart';
@@ -36,8 +40,33 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   bool isShuffled = false;
   bool isSongLoading = false;
 
+  var _instance;
+  var data;
+  // String? songUrl;
+  // String? coverPicUrl;
+  // String? songName;
+
+  // Future<void> getFirebaseSongUrl() async {
+  //   _instance = FirebaseFirestore.instance;
+  //   CollectionReference urls = _instance!.collection('artist');
+  //   DocumentSnapshot snapshot = await urls
+  //       .doc('KcHTxqHAaKmNpRjfUq6o')
+  //       .collection('songs')
+  //       .doc('2WxDje85TfnjMk5H7c1E')
+  //       .get();
+  //   data = snapshot.data() as Map;
+  //   setState(() {
+  //     coverPicUrl = data['songAlbumCoverPicUrl'];
+  //     songName = data['songName'];
+  //     songUrl = data['songNetworkUrl'];
+  //   });
+  //   print(data['songName']);
+  // }
+
   @override
   void initState() {
+    // getFirebaseSongUrl();
+    Provider.of<SongsData>(context, listen: false).getFirebaseSongUrl();
     audioPlayer.onPlayerStateChanged.listen((event) {
       setState(() {
         playing = event;
@@ -197,7 +226,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Blinding Lights',
+                                            context
+                                                        .read<SongsData>()
+                                                        .songName ==
+                                                    ''
+                                                ? 'loading'
+                                                : context
+                                                    .read<SongsData>()
+                                                    .songName,
                                             style: TextStyle(
                                                 fontSize: 24,
                                                 color: SpotifyPlusColors()
@@ -271,8 +307,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           getAudio();
                                         },
                                         child: SizedBox(
-                                          height: 30,
-                                          width: 30,
+                                          height: 50,
+                                          width: 50,
                                           child: isSongLoading
                                               ? const CircularProgressIndicator()
                                               : playing == PlayerState.playing
@@ -364,9 +400,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                 child: SizedBox(
                                                   height: 20,
                                                   width: 200,
-                                                  child: Marquee(
-                                                    text: 'Blinding Lights ',
-                                                    numberOfRounds: 1,
+                                                  child: Text(
+                                                    context
+                                                        .read<SongsData>()
+                                                        .songName,
                                                     style: TextStyle(
                                                       color: SpotifyPlusColors()
                                                           .pureWhite,
@@ -392,29 +429,43 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                         onTap: () {
                                           getAudio();
                                         },
-                                        child: SizedBox(
-                                          height: 50,
-                                          width: 50,
-                                          child: playing == PlayerState.playing
-                                              ? Icon(
-                                                  Icons
-                                                      .pause_circle_outline_sharp,
-                                                  color: SpotifyPlusColors()
-                                                      .pureWhite,
-                                                  size: 38,
-                                                )
-                                              : playing == PlayerState.paused ||
-                                                      playing ==
-                                                          PlayerState.stopped ||
-                                                      playing ==
-                                                          PlayerState.completed
-                                                  ? Icon(
-                                                      Icons.play_arrow_rounded,
-                                                      color: SpotifyPlusColors()
-                                                          .pureWhite,
-                                                      size: 38,
-                                                    )
-                                                  : null,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 20,
+                                          ),
+                                          child: SizedBox(
+                                            height: 30,
+                                            width: 30,
+                                            child: isSongLoading
+                                                ? const CircularProgressIndicator()
+                                                : playing == PlayerState.playing
+                                                    ? Icon(
+                                                        Icons
+                                                            .pause_circle_outline_sharp,
+                                                        color:
+                                                            SpotifyPlusColors()
+                                                                .pureWhite,
+                                                        size: 38,
+                                                      )
+                                                    : playing ==
+                                                                PlayerState
+                                                                    .paused ||
+                                                            playing ==
+                                                                PlayerState
+                                                                    .stopped ||
+                                                            playing ==
+                                                                PlayerState
+                                                                    .completed
+                                                        ? Icon(
+                                                            Icons
+                                                                .play_arrow_rounded,
+                                                            color:
+                                                                SpotifyPlusColors()
+                                                                    .pureWhite,
+                                                            size: 38,
+                                                          )
+                                                        : null,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -533,6 +584,35 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     );
   }
 
+  // verifyPhone() async {
+  //   await FirebaseAuth.instance.verifyPhoneNumber(
+  //     phoneNumber:
+  //         Provider.of<MobileOtpLoginData>(context, listen: false).mobileNo!,
+  //     verificationCompleted: (PhoneAuthCredential credential) async {
+  //       await FirebaseAuth.instance
+  //           .signInWithCredential(credential)
+  //           .then((value) async {
+  //         if (value.user != null) {
+  //           print(credential);
+  //           print('user logged in');
+  //         }
+  //       });
+  //     },
+  //     verificationFailed: (FirebaseAuthException e) {
+  //       print(e.message);
+  //     },
+  //     codeSent: (String verificationId, int? resendToken) {
+  //       Provider.of<MobileOtpLoginData>(context, listen: false)
+  //           .verificationCode = verificationId;
+  //     },
+  //     codeAutoRetrievalTimeout: (String verificationId) {
+  //       Provider.of<MobileOtpLoginData>(context, listen: false)
+  //           .verificationCode = verificationId;
+  //     },
+  //     timeout: const Duration(seconds: 60),
+  //   );
+  // }
+
   Future<void> getAudio() async {
     String url = 'https://www2.cs.uic.edu/~i101/SoundFiles/PinkPanther60.wav';
     if (playing == PlayerState.playing) {
@@ -544,7 +624,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       setState(() {
         isSongLoading = true;
       });
-      await audioPlayer.play(UrlSource(url));
+      await audioPlayer.play(UrlSource(context.read<SongsData>().songUrl));
       setState(() {
         isSongLoading = false;
         playing = PlayerState.playing;
