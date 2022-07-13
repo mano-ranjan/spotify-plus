@@ -13,6 +13,9 @@ import 'package:spotify_app/screens/dashboard/widgets/dashboard_deault_screen.da
 import 'package:spotify_app/screens/library_screens/library_screen.dart';
 import 'package:spotify_app/screens/profile/profile_screen.dart';
 import 'package:spotify_app/screens/search_screen/search_screen.dart';
+import 'package:spotify_app/services/get_audio_by_url.dart';
+
+import 'package:spotify_app/services/navigation_service.dart';
 
 import 'package:spotify_app/utils/constants/colors.dart';
 
@@ -32,65 +35,56 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   bool mediaPlayerSongFav = false;
   ScrollController mediaPlayerScrollController = ScrollController();
   int speedFactor = 20;
-  AudioPlayer audioPlayer = AudioPlayer();
+  // AudioPlayer audioPlayer = AudioPlayer();
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
-  PlayerState playing = PlayerState.stopped;
+  // PlayerState playing = PlayerState.stopped;
   bool isLooped = false;
   bool isShuffled = false;
-  bool isSongLoading = false;
-
-  var _instance;
-  var data;
-  // String? songUrl;
-  // String? coverPicUrl;
-  // String? songName;
-
-  // Future<void> getFirebaseSongUrl() async {
-  //   _instance = FirebaseFirestore.instance;
-  //   CollectionReference urls = _instance!.collection('artist');
-  //   DocumentSnapshot snapshot = await urls
-  //       .doc('KcHTxqHAaKmNpRjfUq6o')
-  //       .collection('songs')
-  //       .doc('2WxDje85TfnjMk5H7c1E')
-  //       .get();
-  //   data = snapshot.data() as Map;
-  //   setState(() {
-  //     coverPicUrl = data['songAlbumCoverPicUrl'];
-  //     songName = data['songName'];
-  //     songUrl = data['songNetworkUrl'];
-  //   });
-  //   print(data['songName']);
-  // }
+  // bool isSongLoading = false;
 
   @override
   void initState() {
-    // getFirebaseSongUrl();
     Provider.of<SongsData>(context, listen: false).getFirebaseSongUrl();
-    audioPlayer.onPlayerStateChanged.listen((event) {
+
+    Provider.of<MediaPlayerData>(context, listen: false)
+        .audioPlayer
+        .onPlayerStateChanged
+        .listen((event) {
       setState(() {
-        playing = event;
+        Provider.of<MediaPlayerData>(context, listen: false).playingState =
+            event;
       });
     });
 
-    audioPlayer.onDurationChanged.listen((Duration newDuration) {
+    Provider.of<MediaPlayerData>(context, listen: false)
+        .audioPlayer
+        .onDurationChanged
+        .listen((Duration newDuration) {
       setState(() {
         duration = newDuration;
       });
     });
 
-    audioPlayer.onPositionChanged.listen((event) {
+    Provider.of<MediaPlayerData>(context, listen: false)
+        .audioPlayer
+        .onPositionChanged
+        .listen((event) {
       setState(() {
         position = event;
       });
     });
-    // audioPlayer.o
-    audioPlayer.onPlayerComplete.listen((event) {
+
+    Provider.of<MediaPlayerData>(context, listen: false)
+        .audioPlayer
+        .onPlayerComplete
+        .listen((event) {
       setState(() {
-        playing = PlayerState.completed;
+        Provider.of<MediaPlayerData>(context, listen: false).playingState =
+            PlayerState.completed;
       });
       if (isLooped) {
-        getAudio();
+        GetAudioByUrl().getAudioByUrl();
       }
     });
     super.initState();
@@ -98,7 +92,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   void dispose() {
-    audioPlayer.dispose();
+    Provider.of<MediaPlayerData>(context, listen: false).audioPlayer.dispose();
     super.dispose();
   }
 
@@ -275,7 +269,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     height: 20,
                                   ),
                                   SpotifySlider(
-                                    audioPlayer: audioPlayer,
+                                    audioPlayer:
+                                        Provider.of<MediaPlayerData>(context)
+                                            .audioPlayer,
                                     duration: duration,
                                     mediaPlayerTappedOpen:
                                         mediaPlayerTappedOpen,
@@ -304,14 +300,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          getAudio();
+                                          GetAudioByUrl().getAudioByUrl();
                                         },
                                         child: SizedBox(
                                           height: 50,
                                           width: 50,
-                                          child: isSongLoading
+                                          child: Provider.of<MediaPlayerData>(context)
+                                                  .isSongLoading
                                               ? const CircularProgressIndicator()
-                                              : playing == PlayerState.playing
+                                              : Provider.of<MediaPlayerData>(context)
+                                                          .playingState ==
+                                                      PlayerState.playing
                                                   ? Icon(
                                                       Icons
                                                           .pause_circle_outline_sharp,
@@ -319,15 +318,23 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                           .pureWhite,
                                                       size: 58,
                                                     )
-                                                  : playing ==
+                                                  : Provider.of<MediaPlayerData>(context, listen: false)
+                                                                  .playingState ==
                                                               PlayerState
                                                                   .paused ||
-                                                          playing ==
+                                                          Provider.of<MediaPlayerData>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .playingState ==
                                                               PlayerState
                                                                   .stopped ||
-                                                          playing ==
-                                                              PlayerState
-                                                                  .completed
+                                                          Provider.of<MediaPlayerData>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .playingState ==
+                                                              PlayerState.completed
                                                       ? Icon(
                                                           Icons
                                                               .play_arrow_rounded,
@@ -427,7 +434,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          getAudio();
+                                          GetAudioByUrl().getAudioByUrl();
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.only(
@@ -436,9 +443,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           child: SizedBox(
                                             height: 30,
                                             width: 30,
-                                            child: isSongLoading
+                                            child: Provider.of<MediaPlayerData>(context,
+                                                        listen: false)
+                                                    .isSongLoading
                                                 ? const CircularProgressIndicator()
-                                                : playing == PlayerState.playing
+                                                : Provider.of<MediaPlayerData>(
+                                                                context,
+                                                                listen: false)
+                                                            .playingState ==
+                                                        PlayerState.playing
                                                     ? Icon(
                                                         Icons
                                                             .pause_circle_outline_sharp,
@@ -447,15 +460,18 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                                 .pureWhite,
                                                         size: 38,
                                                       )
-                                                    : playing ==
+                                                    : Provider.of<MediaPlayerData>(context, listen: false).playingState ==
                                                                 PlayerState
                                                                     .paused ||
-                                                            playing ==
+                                                            Provider.of<MediaPlayerData>(context, listen: false)
+                                                                    .playingState ==
                                                                 PlayerState
                                                                     .stopped ||
-                                                            playing ==
-                                                                PlayerState
-                                                                    .completed
+                                                            Provider.of<MediaPlayerData>(
+                                                                        context,
+                                                                        listen: false)
+                                                                    .playingState ==
+                                                                PlayerState.completed
                                                         ? Icon(
                                                             Icons
                                                                 .play_arrow_rounded,
@@ -471,7 +487,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     ],
                                   ),
                                   SpotifySlider(
-                                    audioPlayer: audioPlayer,
+                                    audioPlayer:
+                                        Provider.of<MediaPlayerData>(context)
+                                            .audioPlayer,
                                     duration: duration,
                                     mediaPlayerTappedOpen:
                                         mediaPlayerTappedOpen,
@@ -582,53 +600,5 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         ),
       )),
     );
-  }
-
-  // verifyPhone() async {
-  //   await FirebaseAuth.instance.verifyPhoneNumber(
-  //     phoneNumber:
-  //         Provider.of<MobileOtpLoginData>(context, listen: false).mobileNo!,
-  //     verificationCompleted: (PhoneAuthCredential credential) async {
-  //       await FirebaseAuth.instance
-  //           .signInWithCredential(credential)
-  //           .then((value) async {
-  //         if (value.user != null) {
-  //           print(credential);
-  //           print('user logged in');
-  //         }
-  //       });
-  //     },
-  //     verificationFailed: (FirebaseAuthException e) {
-  //       print(e.message);
-  //     },
-  //     codeSent: (String verificationId, int? resendToken) {
-  //       Provider.of<MobileOtpLoginData>(context, listen: false)
-  //           .verificationCode = verificationId;
-  //     },
-  //     codeAutoRetrievalTimeout: (String verificationId) {
-  //       Provider.of<MobileOtpLoginData>(context, listen: false)
-  //           .verificationCode = verificationId;
-  //     },
-  //     timeout: const Duration(seconds: 60),
-  //   );
-  // }
-
-  Future<void> getAudio() async {
-    String url = 'https://www2.cs.uic.edu/~i101/SoundFiles/PinkPanther60.wav';
-    if (playing == PlayerState.playing) {
-      setState(() {
-        playing = PlayerState.paused;
-      });
-      await audioPlayer.pause();
-    } else {
-      setState(() {
-        isSongLoading = true;
-      });
-      await audioPlayer.play(UrlSource(context.read<SongsData>().songUrl));
-      setState(() {
-        isSongLoading = false;
-        playing = PlayerState.playing;
-      });
-    }
   }
 }

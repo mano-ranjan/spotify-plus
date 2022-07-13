@@ -1,5 +1,8 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify_app/services/navigation_service.dart';
 
 class SongsData with ChangeNotifier {
   String songUrl = '';
@@ -21,4 +24,24 @@ class SongsData with ChangeNotifier {
     print(data['songName']);
     notifyListeners();
   }
+}
+
+class MediaPlayerData with ChangeNotifier {
+  PlayerState playingState = PlayerState.stopped;
+  bool isSongLoading = false;
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  void updatePlayingState(PlayerState incomingPlayerState) {
+    print(incomingPlayerState);
+    playingState = incomingPlayerState;
+    notifyListeners();
+  }
+
+  void updateIsSongLoading(bool incomingIsSongLoading) {
+    print('the issongloading state is : $incomingIsSongLoading');
+    isSongLoading = incomingIsSongLoading;
+    notifyListeners();
+  }
+
+  // void updateAudioPlayerAction (AudioPlayer )
 }

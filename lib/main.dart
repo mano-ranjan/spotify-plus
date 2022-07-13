@@ -22,6 +22,9 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => MobileOtpLoginData(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => MediaPlayerData(),
+        ),
       ],
       child: const MyApp(),
     ),
