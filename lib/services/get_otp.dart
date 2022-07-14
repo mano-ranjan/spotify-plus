@@ -13,17 +13,17 @@ class GetMobileOtp {
       //   NavService.navKey.currentContext!,
       //   listen: false,
       // ).mobileNo}',
-      phoneNumber: '+918910101599',
-      verificationCompleted: (PhoneAuthCredential credential) async {
+      phoneNumber: '+918972704449',
+      verificationCompleted: (PhoneAuthCredential credential) {
         print('verificationCompleted');
-        await FirebaseAuth.instance
-            .signInWithCredential(credential)
-            .then((value) async {
-          if (value.user != null) {
-            print(credential);
-            print('user logged in');
-          }
-        });
+        // await FirebaseAuth.instance
+        //     .signInWithCredential(credential)
+        //     .then((value) async {
+        //   if (value.user != null) {
+        //     print(credential);
+        //     print('user logged in');
+        //   }
+        // });
       },
       verificationFailed: (FirebaseAuthException e) {
         print('the error is : ${e.message}');

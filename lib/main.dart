@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify_app/firebase_options.dart';
 import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
+import 'package:spotify_app/providers/login_provider/user_data.dart';
 import 'package:spotify_app/providers/songs_provider/songs_data.dart';
 import 'package:spotify_app/screens/dashboard/dashboard.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => MediaPlayerData(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UserData(),
         ),
       ],
       child: const MyApp(),

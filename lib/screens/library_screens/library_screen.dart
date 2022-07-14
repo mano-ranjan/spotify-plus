@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/screens/library_screens/widgets/buttons.dart';
+import 'package:spotify_app/services/get_current_user.dart';
 
 import 'package:spotify_app/utils/constants/colors.dart';
 
@@ -12,6 +13,17 @@ class LibraryScreen extends StatefulWidget {
 
 class _LibraryScreenState extends State<LibraryScreen> {
   bool isExpanded = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      GetCurrentUser().currentUser();
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

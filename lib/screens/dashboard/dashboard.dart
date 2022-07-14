@@ -14,9 +14,6 @@ import 'package:spotify_app/screens/library_screens/library_screen.dart';
 import 'package:spotify_app/screens/profile/profile_screen.dart';
 import 'package:spotify_app/screens/search_screen/search_screen.dart';
 import 'package:spotify_app/services/get_audio_by_url.dart';
-
-import 'package:spotify_app/services/navigation_service.dart';
-
 import 'package:spotify_app/utils/constants/colors.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -34,14 +31,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   bool mediaPlayerTappedOpen = false;
   bool mediaPlayerSongFav = false;
   ScrollController mediaPlayerScrollController = ScrollController();
-  int speedFactor = 20;
-  // AudioPlayer audioPlayer = AudioPlayer();
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
-  // PlayerState playing = PlayerState.stopped;
   bool isLooped = false;
   bool isShuffled = false;
-  // bool isSongLoading = false;
 
   @override
   void initState() {

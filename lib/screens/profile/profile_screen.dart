@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/services/sign_out_current_user.dart';
 
 import 'package:spotify_app/utils/constants/colors.dart';
 
@@ -60,21 +61,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(
             height: 20,
           ),
-          Container(
-            height: 40,
-            width: 120,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: SpotifyPlusColors().pureWhite,
-              ),
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Center(
-              child: Text(
-                'Edit profile',
-                style: TextStyle(
+          InkWell(
+            onTap: () {
+              SignOutCurrentUser().signOutCurrentUser();
+            },
+            child: Container(
+              height: 40,
+              width: 120,
+              decoration: BoxDecoration(
+                border: Border.all(
                   color: SpotifyPlusColors().pureWhite,
-                  fontWeight: FontWeight.bold,
+                ),
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Center(
+                child: Text(
+                  'Edit profile',
+                  style: TextStyle(
+                    color: SpotifyPlusColors().pureWhite,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

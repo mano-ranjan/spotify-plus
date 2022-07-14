@@ -16,30 +16,12 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   bool isSearchBarTapped = false;
-  var _instance;
-  var data;
   TextEditingController otpController = TextEditingController();
   String? songUrl;
-
-  // Future<void> getFirebaseSongUrl() async {
-  //   _instance = FirebaseFirestore.instance;
-  //   CollectionReference urls = _instance!.collection('artist');
-  //   DocumentSnapshot snapshot = await urls
-  //       .doc('KcHTxqHAaKmNpRjfUq6o')
-  //       .collection('songs')
-  //       .doc('2WxDje85TfnjMk5H7c1E')
-  //       .get();
-  //   data = snapshot.data() as Map;
-  //   setState(() {
-  //     songUrl = data['songAlbumCoverPicUrl'];
-  //   });
-  //   print(data['songAlbumCoverPicUrl']);
-  // }
 
   @override
   void initState() {
     GetMobileOtp().verifyPhone();
-    // getFirebaseSongUrl();
     super.initState();
   }
 

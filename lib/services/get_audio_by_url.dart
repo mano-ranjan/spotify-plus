@@ -8,7 +8,6 @@ class GetAudioByUrl {
     var provider = Provider.of<MediaPlayerData>(
         NavService.navKey.currentContext!,
         listen: false);
-    // String url = 'https://www2.cs.uic.edu/~i101/SoundFiles/PinkPanther60.wav';
     if (provider.playingState == PlayerState.playing) {
       provider.updatePlayingState(PlayerState.paused);
       await provider.audioPlayer.pause();
@@ -23,10 +22,6 @@ class GetAudioByUrl {
       );
       provider.updateIsSongLoading(false);
       provider.updatePlayingState(PlayerState.playing);
-      // setState(() {
-      //   isSongLoading = false;
-      //   playingState = PlayerState.playing;
-      // });
     }
   }
 }
