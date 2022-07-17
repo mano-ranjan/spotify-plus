@@ -5,6 +5,8 @@ class MobileOtpLoginData with ChangeNotifier {
   String verificationCode = '';
   String verificationId = '';
   String countryCode = '';
+  bool codeSent = false;
+  bool loggedIn = false;
 
   void updateMobileNo(String incomingMobileNo) {
     mobileNo = incomingMobileNo;
@@ -23,6 +25,16 @@ class MobileOtpLoginData with ChangeNotifier {
 
   void updateCountryCode(String incomingCountryCode) {
     countryCode = incomingCountryCode;
+    notifyListeners();
+  }
+
+  void updateCodeSent(bool incomingCodeSent) {
+    codeSent = incomingCodeSent;
+    notifyListeners();
+  }
+
+  void updateLoggedIn(bool incomingLoggedIn) {
+    loggedIn = incomingLoggedIn;
     notifyListeners();
   }
 }

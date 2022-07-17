@@ -16,14 +16,6 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   bool isSearchBarTapped = false;
-  TextEditingController otpController = TextEditingController();
-  String? songUrl;
-
-  @override
-  void initState() {
-    GetMobileOtp().verifyPhone();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,34 +118,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-
-                  TextField(
-                    controller: otpController,
-                  ),
-
-                  ElevatedButton(
-                    onPressed: () {
-                      Provider.of<MobileOtpLoginData>(context, listen: false)
-                          .updateVerCode(otpController.text);
-                      VerifyOtp().verifyOtp();
-                    },
-                    child: Text('login'),
-                  )
-                  // StreamBuilder(
-                  //   stream: FirebaseFirestore.instance
-                  //       .collection('artist/KcHTxqHAaKmNpRjfUq6o/')
-                  //       .snapshots(),
-                  //   builder: (context, snapshot) {
-                  //     if (!snapshot.hasData) {
-                  //       return Text('Loading data please wait');
-                  //     }
-                  //     return Column(
-                  //       children: [
-                  //         Text(snapshot.data!.docs[0]['artistEmailId']),
-                  //       ],
-                  //     );
-                  //   },
-                  // )
                 ],
               ),
       ),

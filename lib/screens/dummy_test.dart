@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_app/screens/dashboard/widgets/dashboard_deault_screen.dart';
+import 'package:spotify_app/screens/dashboard/widgets/dashboard_default_screen.dart';
 import 'package:spotify_app/screens/library_screens/library_screen.dart';
 import 'package:spotify_app/screens/profile/profile_screen.dart';
 import 'package:spotify_app/screens/search_screen/search_screen.dart';

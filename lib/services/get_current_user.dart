@@ -8,8 +8,12 @@ class GetCurrentUser {
   void currentUser() {
     final User? user = auth.currentUser;
     final uid = user?.uid;
-    print('the current user UID is : $uid');
-    Provider.of<UserData>(NavService.navKey.currentContext!, listen: false)
-        .updateUid(uid!);
+    if (uid != null) {
+      print('the current user UID is : $uid');
+      Provider.of<UserData>(NavService.navKey.currentContext!, listen: false)
+          .updateUid(uid);
+    } else {
+      print('no user logged in');
+    }
   }
 }

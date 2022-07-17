@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
+import 'package:spotify_app/screens/login_screens/login_screen.dart';
 import 'package:spotify_app/services/sign_out_current_user.dart';
+import 'package:spotify_app/routes/routes.dart' as route;
 
 import 'package:spotify_app/utils/constants/colors.dart';
 
@@ -64,6 +68,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           InkWell(
             onTap: () {
               SignOutCurrentUser().signOutCurrentUser();
+              if (!Provider.of<MobileOtpLoginData>(context, listen: false)
+                  .loggedIn) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    route.loginScreen, (route) => false);
+              }
             },
             child: Container(
               height: 40,

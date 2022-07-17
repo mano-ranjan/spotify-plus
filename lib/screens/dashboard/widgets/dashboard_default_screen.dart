@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/screens/dashboard/widgets/playlist_cards_list.dart';
 import 'package:spotify_app/utils/constants/colors.dart';
+import 'package:spotify_app/routes/routes.dart' as route;
 
 class DashBoardDefaultScreen extends StatefulWidget {
   const DashBoardDefaultScreen({Key? key}) : super(key: key);
@@ -53,17 +54,22 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(36),
-                      color: SpotifyPlusColors().greyShade900,
-                    ),
-                    child: Icon(
-                      Icons.notifications_outlined,
-                      color: SpotifyPlusColors().pureWhite,
-                      size: 22,
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, route.notificationScreen);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(36),
+                        color: SpotifyPlusColors().greyShade900,
+                      ),
+                      child: Icon(
+                        Icons.notifications_outlined,
+                        color: SpotifyPlusColors().pureWhite,
+                        size: 22,
+                      ),
                     ),
                   ),
                 ],

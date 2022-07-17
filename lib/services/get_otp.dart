@@ -13,7 +13,11 @@ class GetMobileOtp {
       //   NavService.navKey.currentContext!,
       //   listen: false,
       // ).mobileNo}',
-      phoneNumber: '+918972704449',
+      phoneNumber: Provider.of<MobileOtpLoginData>(
+        NavService.navKey.currentContext!,
+        listen: false,
+      ).mobileNo,
+      // phoneNumber: '+918972704449',
       verificationCompleted: (PhoneAuthCredential credential) {
         print('verificationCompleted');
         // await FirebaseAuth.instance
@@ -30,7 +34,10 @@ class GetMobileOtp {
       },
       codeSent: (String verificationId, int? resendToken) {
         print('code sent , $verificationId');
-
+        Provider.of<MobileOtpLoginData>(
+          NavService.navKey.currentContext!,
+          listen: false,
+        ).updateCodeSent(true);
         Provider.of<MobileOtpLoginData>(
           NavService.navKey.currentContext!,
           listen: false,
