@@ -16,7 +16,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       GetCurrentUser().currentUser();
     });

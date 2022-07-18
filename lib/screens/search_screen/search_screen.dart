@@ -1,9 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
-import 'package:spotify_app/services/get_otp.dart';
-import 'package:spotify_app/services/verify_otp.dart';
 
 import 'package:spotify_app/utils/constants/colors.dart';
 

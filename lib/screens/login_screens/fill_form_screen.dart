@@ -13,7 +13,16 @@ class _LoginFirstTimeFormScreenState extends State<LoginFirstTimeFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.amber,
+        color: Colors.white,
+        child: const Center(
+          child: Text(
+            'Form Filling page',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
-import 'package:spotify_app/screens/dashboard/dashboard.dart';
 import 'package:spotify_app/screens/login_screens/fill_form_screen.dart';
 import 'package:spotify_app/services/navigation_service.dart';
 import 'package:spotify_app/routes/routes.dart' as route;
@@ -19,7 +18,7 @@ class VerifyOtp {
               listen: false)
           .verificationCode,
     );
-    UserCredential _authResult =
+    UserCredential authResult =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
     FirebaseAuth.instance.signInWithCredential(credential).then((value) {
@@ -27,7 +26,7 @@ class VerifyOtp {
       // Provider.of<MobileOtpLoginData>(NavService.navKey.currentContext!,
       //         listen: false)
       //     .updateLoggedIn(true);
-      if (_authResult.additionalUserInfo!.isNewUser) {
+      if (authResult.additionalUserInfo!.isNewUser) {
         print('new user');
         Navigator.of(NavService.navKey.currentContext!).push(MaterialPageRoute(
             builder: (context) => const LoginFirstTimeFormScreen()));

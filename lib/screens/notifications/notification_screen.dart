@@ -69,7 +69,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             // color: Colors.amber,
                             height: 200,
                             // width: 40,

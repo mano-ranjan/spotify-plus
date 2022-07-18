@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
-import 'package:spotify_app/screens/dashboard/dashboard.dart';
-import 'package:spotify_app/services/get_current_user.dart';
 import 'package:spotify_app/services/get_otp.dart';
 import 'package:spotify_app/services/verify_otp.dart';
 import 'package:spotify_app/utils/constants/colors.dart';
-import 'package:spotify_app/routes/routes.dart' as route;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

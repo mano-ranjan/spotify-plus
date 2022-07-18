@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
-import 'package:spotify_app/screens/login_screens/login_screen.dart';
 import 'package:spotify_app/services/sign_out_current_user.dart';
 import 'package:spotify_app/routes/routes.dart' as route;
 
@@ -29,9 +28,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
               BackButton(
                 color: SpotifyPlusColors().transparent,
               ),
-              Icon(
-                Icons.more_horiz,
-                color: SpotifyPlusColors().pureWhite,
+              InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          backgroundColor: Colors.transparent,
+                          child: Container(
+                            height: 400,
+                            width: 400,
+                            decoration: BoxDecoration(
+                              color: SpotifyPlusColors().pureGrey,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Center(
+                              child: InkWell(
+                                onTap: () {
+                                  SignOutCurrentUser().signOutCurrentUser();
+                                  if (!Provider.of<MobileOtpLoginData>(context,
+                                          listen: false)
+                                      .loggedIn) {
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            route.loginScreen,
+                                            (route) => false);
+                                  }
+                                },
+                                child: Container(
+                                  height: 50,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                    color: SpotifyPlusColors().pureGreen,
+                                    borderRadius: BorderRadius.circular(36),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Sign out',
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        color: SpotifyPlusColors().pureWhite,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      });
+                },
+                child: Icon(
+                  Icons.more_horiz,
+                  color: SpotifyPlusColors().pureWhite,
+                ),
               ),
             ],
           ),
@@ -66,14 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 20,
           ),
           InkWell(
-            onTap: () {
-              SignOutCurrentUser().signOutCurrentUser();
-              if (!Provider.of<MobileOtpLoginData>(context, listen: false)
-                  .loggedIn) {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    route.loginScreen, (route) => false);
-              }
-            },
+            onTap: () {},
             child: Container(
               height: 40,
               width: 120,

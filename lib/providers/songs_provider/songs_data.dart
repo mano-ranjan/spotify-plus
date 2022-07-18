@@ -1,8 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:spotify_app/services/navigation_service.dart';
 
 class SongsData with ChangeNotifier {
   String songUrl = '';
@@ -10,8 +8,8 @@ class SongsData with ChangeNotifier {
   String songName = '';
 
   Future<void> getFirebaseSongUrl() async {
-    var _instance = FirebaseFirestore.instance;
-    CollectionReference urls = _instance.collection('artist');
+    var instance = FirebaseFirestore.instance;
+    CollectionReference urls = instance.collection('artist');
     DocumentSnapshot snapshot = await urls
         .doc('KcHTxqHAaKmNpRjfUq6o')
         .collection('songs')
