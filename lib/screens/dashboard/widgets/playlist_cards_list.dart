@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/utils/constants/colors.dart';
+import 'package:spotify_app/utils/constants/strings.dart';
 
 class PlayListCards extends StatefulWidget {
   final String playlistLabel;
@@ -54,18 +55,14 @@ class _PlayListCardsState extends State<PlayListCards> {
                       child: SizedBox(
                         height: 80,
                         width: 80,
-                        child: Image.asset(
-                          'assets/images/pngs/artist_logo.jpeg',
-                          fit: BoxFit.cover,
-                          // scale: 1,
-                        ),
+                        child: SpotifyPlusImage().defaultArtistImage,
                       ),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      'artist',
+                      SpotifyPlusStrings().defaultArtistName,
                       style: TextStyle(color: SpotifyPlusColors().pureWhite),
                     )
                   ],

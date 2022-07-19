@@ -3,6 +3,7 @@ import 'package:spotify_app/screens/library_screens/widgets/buttons.dart';
 import 'package:spotify_app/services/get_current_user.dart';
 
 import 'package:spotify_app/utils/constants/colors.dart';
+import 'package:spotify_app/utils/constants/strings.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -48,7 +49,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       ),
                       child: Center(
                         child: Text(
-                          'M',
+                          SpotifyPlusStrings().defaultArtistLogoName,
                           style: TextStyle(
                             color: SpotifyPlusColors().pureBlack,
                             fontSize: 24,
@@ -61,7 +62,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       width: 10,
                     ),
                     Text(
-                      'Your Library',
+                      SpotifyPlusStrings().libraryHeaderText,
                       style: TextStyle(
                         fontSize: 24,
                         color: SpotifyPlusColors().pureWhite,
@@ -134,7 +135,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       width: 10,
                     ),
                     Text(
-                      'Most recent',
+                      SpotifyPlusStrings().librarySortingHeaderText,
                       style: TextStyle(
                         color: SpotifyPlusColors().pureWhite,
                       ),
@@ -189,7 +190,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      'Playlist Name',
+                                      SpotifyPlusStrings().defaultPlaylistName,
                                       style: TextStyle(
                                         color: SpotifyPlusColors().pureWhite,
                                       ),
@@ -201,7 +202,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      'Playlist . Spotify',
+                                      SpotifyPlusStrings()
+                                          .defaultPlaylistSubName,
                                       style: TextStyle(
                                         color: SpotifyPlusColors().pureGrey,
                                       ),
@@ -234,7 +236,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Top Gaming Tracks',
+                                        SpotifyPlusStrings()
+                                            .defaultPlaylistName,
                                         style: TextStyle(
                                           color: SpotifyPlusColors().pureWhite,
                                           fontSize: 18,
@@ -245,7 +248,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                         height: 10,
                                       ),
                                       Text(
-                                        'Top Gaming Tracks',
+                                        SpotifyPlusStrings()
+                                            .defaultPlaylistSubName,
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: SpotifyPlusColors().pureGrey,

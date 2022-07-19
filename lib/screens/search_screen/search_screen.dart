@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:spotify_app/utils/constants/colors.dart';
+import 'package:spotify_app/utils/constants/strings.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                   child: Center(
                     child: Text(
-                      'go back',
+                      SpotifyPlusStrings().searchGoBackText,
                       style: TextStyle(
                         color: SpotifyPlusColors().pureWhite,
                       ),
@@ -47,7 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Search',
+                        SpotifyPlusStrings().searchSearchText,
                         style: TextStyle(
                           color: SpotifyPlusColors().pureWhite,
                           fontSize: 24,
@@ -81,15 +82,15 @@ class _SearchScreenState extends State<SearchScreen> {
                           horizontal: 20,
                         ),
                         child: Row(
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               Icons.search,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(
-                              'Artists, songs, or podcasts',
+                              SpotifyPlusStrings().searchBarHintText,
                             )
                           ],
                         ),
@@ -102,7 +103,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Your top genres',
+                      SpotifyPlusStrings().searchTopGenreText,
                       style: TextStyle(
                         color: SpotifyPlusColors().pureWhite,
                         fontSize: 14,

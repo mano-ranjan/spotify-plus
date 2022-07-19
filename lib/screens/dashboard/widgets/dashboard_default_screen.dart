@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_app/screens/dashboard/widgets/playlist_cards_list.dart';
 import 'package:spotify_app/utils/constants/colors.dart';
 import 'package:spotify_app/routes/routes.dart' as route;
+import 'package:spotify_app/utils/constants/strings.dart';
 
 class DashBoardDefaultScreen extends StatefulWidget {
   const DashBoardDefaultScreen({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hello Mano!',
+                        SpotifyPlusStrings().defaultHeaderName,
                         style: TextStyle(
                           fontSize: 26,
                           color: SpotifyPlusColors().pureWhite,
@@ -43,7 +44,7 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
                         height: 10,
                       ),
                       Text(
-                        "Let's listen to some music",
+                        SpotifyPlusStrings().dashboardSubHeaderText,
                         style: TextStyle(
                           fontSize: 14,
                           color: SpotifyPlusColors().pureWhite,
@@ -81,7 +82,7 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Your favorite artist',
+                    SpotifyPlusStrings().dashboardFavArtistString,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -121,18 +122,14 @@ class _DashBoardDefaultScreenState extends State<DashBoardDefaultScreen> {
                               ),
                               // clipper: MyClipper(),
                               // borderRadius: BorderRadius.circular(),
-                              child: Image.asset(
-                                'assets/images/pngs/artist_logo.jpeg',
-                                fit: BoxFit.cover,
-                                // scale: 1,
-                              ),
+                              child: SpotifyPlusImage().defaultArtistImage,
                             ),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
                           Text(
-                            'artist',
+                            SpotifyPlusStrings().defaultArtistName,
                             style: TextStyle(
                               color: SpotifyPlusColors().pureWhite,
                             ),

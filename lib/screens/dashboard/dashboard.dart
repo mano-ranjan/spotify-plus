@@ -12,6 +12,7 @@ import 'package:spotify_app/screens/profile/profile_screen.dart';
 import 'package:spotify_app/screens/search_screen/search_screen.dart';
 import 'package:spotify_app/services/get_audio_by_url.dart';
 import 'package:spotify_app/utils/constants/colors.dart';
+import 'package:spotify_app/utils/constants/strings.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
@@ -174,7 +175,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                         ),
                                       ),
                                       Text(
-                                        'mano',
+                                        SpotifyPlusStrings().defaultName,
                                         style: TextStyle(
                                           color: SpotifyPlusColors().pureWhite,
                                           fontSize: 18,
@@ -193,10 +194,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   SizedBox(
                                     height: 400,
                                     width: 400,
-                                    child: Image.asset(
-                                      'assets/images/pngs/artist_logo.jpeg',
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: SpotifyPlusImage().defaultArtistImage,
                                   ),
                                   const SizedBox(
                                     height: 40,
@@ -228,7 +226,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                             height: 10,
                                           ),
                                           Text(
-                                            'mano',
+                                            SpotifyPlusStrings().defaultName,
                                             style: TextStyle(
                                                 color: SpotifyPlusColors()
                                                     .pureWhite),
@@ -376,11 +374,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                             child: SizedBox(
                                               height: 50,
                                               width: 50,
-                                              child: Image.asset(
-                                                'assets/images/pngs/artist_logo.jpeg',
-                                                fit: BoxFit.cover,
-                                                // scale: 1,
-                                              ),
+                                              child: SpotifyPlusImage().defaultArtistImage,
                                             ),
                                           ),
                                           const SizedBox(
@@ -412,7 +406,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                 height: 5,
                                               ),
                                               Text(
-                                                'mano',
+                                                SpotifyPlusStrings().defaultName,
                                                 style: TextStyle(
                                                   color: SpotifyPlusColors()
                                                       .pureWhite,

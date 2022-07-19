@@ -4,6 +4,7 @@ import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
 import 'package:spotify_app/services/get_otp.dart';
 import 'package:spotify_app/services/verify_otp.dart';
 import 'package:spotify_app/utils/constants/colors.dart';
+import 'package:spotify_app/utils/constants/strings.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -36,9 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 40,
                 ),
-                const Text(
-                  'Spotify App',
-                  style: TextStyle(
+                Text(
+                  SpotifyPlusStrings().loginHeaderText,
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        'Login / Sign Up',
+                        SpotifyPlusStrings().loginSignupText,
                         style: TextStyle(
                           color: SpotifyPlusColors().pureWhite,
                           fontSize: 18,

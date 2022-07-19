@@ -5,6 +5,7 @@ import 'package:spotify_app/providers/users_provider/new_user_data.dart';
 import 'package:spotify_app/services/add_user.dart';
 import 'package:spotify_app/utils/constants/colors.dart';
 import 'package:spotify_app/routes/routes.dart' as route;
+import 'package:spotify_app/utils/constants/strings.dart';
 
 class LoginFirstTimeFormScreen extends StatefulWidget {
   const LoginFirstTimeFormScreen({Key? key}) : super(key: key);
@@ -121,7 +122,7 @@ class _LoginFirstTimeFormScreenState extends State<LoginFirstTimeFormScreen> {
                       ),
                       child: Center(
                         child: Text(
-                          'Submit',
+                          SpotifyPlusStrings().submitText,
                           style: TextStyle(
                             fontSize: 18,
                             color: SpotifyPlusColors().pureWhite,

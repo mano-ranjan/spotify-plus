@@ -5,6 +5,7 @@ import 'package:spotify_app/services/sign_out_current_user.dart';
 import 'package:spotify_app/routes/routes.dart' as route;
 
 import 'package:spotify_app/utils/constants/colors.dart';
+import 'package:spotify_app/utils/constants/strings.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -64,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'Sign out',
+                                      SpotifyPlusStrings().profileSignOutText,
                                       style: TextStyle(
                                         fontSize: 24,
                                         color: SpotifyPlusColors().pureWhite,
@@ -105,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 20,
           ),
           Text(
-            'manoranjan kumar',
+            SpotifyPlusStrings().defaultProfileName,
             style: TextStyle(
               color: SpotifyPlusColors().pureWhite,
               fontSize: 24,
@@ -128,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               child: Center(
                 child: Text(
-                  'Edit profile',
+                  SpotifyPlusStrings().profileEditProfileText,
                   style: TextStyle(
                     color: SpotifyPlusColors().pureWhite,
                     fontWeight: FontWeight.bold,
@@ -146,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Column(
                 children: [
                   Text(
-                    '0',
+                    SpotifyPlusStrings().profileFollowersNum,
                     style: TextStyle(
                       color: SpotifyPlusColors().pureWhite,
                     ),
@@ -155,7 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 10,
                   ),
                   Text(
-                    'FOLLOWERS',
+                    SpotifyPlusStrings().profileFollowerText,
                     style: TextStyle(
                       color: SpotifyPlusColors().pureGrey,
                     ),
@@ -165,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Column(
                 children: [
                   Text(
-                    '0',
+                    SpotifyPlusStrings().profileFollowingsNum,
                     style: TextStyle(
                       color: SpotifyPlusColors().pureWhite,
                     ),
@@ -174,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 10,
                   ),
                   Text(
-                    'FOLLOWING',
+                    SpotifyPlusStrings().profileFollowingText,
                     style: TextStyle(
                       color: SpotifyPlusColors().pureGrey,
                     ),
@@ -189,7 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Playlists',
+              SpotifyPlusStrings().profilePlaylistText,
               style: TextStyle(
                 color: SpotifyPlusColors().pureWhite,
                 fontSize: 18,
@@ -217,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'playlist_name',
+                        SpotifyPlusStrings().profilePlaylistHeaderText,
                         style: TextStyle(
                           color: SpotifyPlusColors().pureWhite,
                         ),
@@ -226,7 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         height: 5,
                       ),
                       Text(
-                        '0 likes',
+                        SpotifyPlusStrings().profileLikesText,
                         style: TextStyle(
                           color: SpotifyPlusColors().pureGrey,
                         ),

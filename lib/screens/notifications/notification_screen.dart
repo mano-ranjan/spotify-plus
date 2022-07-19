@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/utils/constants/colors.dart';
+import 'package:spotify_app/utils/constants/strings.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 height: 40,
               ),
               Text(
-                "What's New",
+                SpotifyPlusStrings().notificationHeaderText,
                 style: TextStyle(
                   fontSize: 28,
                   color: SpotifyPlusColors().pureWhite,
@@ -42,7 +43,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 height: 20,
               ),
               Text(
-                'The latest releases from artists, podcasts, and shows you follow',
+                SpotifyPlusStrings().notificationHeaderSubText,
                 style: TextStyle(
                   fontSize: 12,
                   color: SpotifyPlusColors().pureGrey,
@@ -52,7 +53,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 height: 20,
               ),
               Text(
-                'New',
+                SpotifyPlusStrings().notificationSubText,
                 style: TextStyle(
                   fontSize: 18,
                   color: SpotifyPlusColors().pureWhite,
@@ -84,10 +85,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     SizedBox(
                                       height: 100,
                                       width: 100,
-                                      child: Image.asset(
-                                        'assets/images/pngs/artist_logo.jpeg',
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child:
+                                          SpotifyPlusImage().defaultArtistImage,
                                     ),
                                     const SizedBox(
                                       width: 10,
@@ -97,7 +96,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '14 hr ago',
+                                          SpotifyPlusStrings()
+                                              .notificationTimeStampText,
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: SpotifyPlusColors().pureGrey,
@@ -107,7 +107,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                           height: 10,
                                         ),
                                         Text(
-                                          'Blinding Lights',
+                                          SpotifyPlusStrings()
+                                              .notificationTrackNameText,
                                           style: TextStyle(
                                             fontSize: 14,
                                             color:
@@ -119,7 +120,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                           height: 10,
                                         ),
                                         Text(
-                                          'Weeknd',
+                                          SpotifyPlusStrings()
+                                              .notificationArtistNameText,
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: SpotifyPlusColors().pureGrey,
@@ -133,7 +135,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   height: 10,
                                 ),
                                 Text(
-                                  'Single',
+                                  SpotifyPlusStrings()
+                                      .notificationAlbumTypeText,
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: SpotifyPlusColors().pureGrey,
