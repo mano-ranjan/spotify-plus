@@ -18,16 +18,16 @@ class GetMobileOtp {
         listen: false,
       ).mobileNo,
       // phoneNumber: '+918972704449',
-      verificationCompleted: (PhoneAuthCredential credential) {
+      verificationCompleted: (PhoneAuthCredential credential) async {
         print('verificationCompleted');
-        // await FirebaseAuth.instance
-        //     .signInWithCredential(credential)
-        //     .then((value) async {
-        //   if (value.user != null) {
-        //     print(credential);
-        //     print('user logged in');
-        //   }
-        // });
+        await FirebaseAuth.instance
+            .signInWithCredential(credential)
+            .then((value) async {
+          if (value.user != null) {
+            print(credential);
+            print('user logged in');
+          }
+        });
       },
       verificationFailed: (FirebaseAuthException e) {
         print('the error is : ${e.message}');

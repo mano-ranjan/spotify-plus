@@ -5,11 +5,11 @@ import 'package:spotify_app/firebase_options.dart';
 import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
 import 'package:spotify_app/providers/login_provider/user_data.dart';
 import 'package:spotify_app/providers/songs_provider/songs_data.dart';
+import 'package:spotify_app/providers/users_provider/new_user_data.dart';
 import 'package:spotify_app/screens/dashboard/dashboard.dart';
 import 'package:provider/provider.dart';
 import 'package:spotify_app/screens/login_screens/login_screen.dart';
 import 'package:spotify_app/routes/routes.dart' as route;
-// import 'package:spotify_app/screens/login_screens/login_screen.dart';
 import 'package:spotify_app/services/navigation_service.dart';
 
 void main() async {
@@ -31,6 +31,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => UserData(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => NewUserData(),
         ),
       ],
       child: const MyApp(),
