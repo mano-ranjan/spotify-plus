@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SearchFirebaseDatabase {
-  Future getData() async {
-    final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    QuerySnapshot snapshot = await firebaseFirestore.collection('songs').get();
-    return snapshot.docs;
-  }
+  // Future getData() async {
+  //   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  //   QuerySnapshot snapshot = await firebaseFirestore.collection('songs').get();
+  //   return snapshot.docs;
+  // }
 
   // Future queryData(String queryString) async {
   //   return FirebaseFirestore.instance.collection('songs').where()
   // }
-  searchMethod(String searchText) {
+  List searchMethod(String searchText) {
     // DatabaseReference searchRef =
     //     FirebaseDatabase.instance.ref().child('songs');
     // searchRef.once().then((DataSnapshot snapShot) {
@@ -26,11 +26,19 @@ class SearchFirebaseDatabase {
     //     print('->>>>>> ${docs.docs.isEmpty}');
     //   },
     // );
-    return FirebaseFirestore.instance
-        .collection('artist')
-        .doc('KcHTxqHAaKmNpRjfUq6o')
-        .collection('songs')
-        .where('SearchKey', isEqualTo: searchText.substring(0, 1).toUpperCase())
-        .get();
+    return [
+      FirebaseFirestore.instance
+          .collection('artist')
+          .doc('KcHTxqHAaKmNpRjfUq6o')
+          .collection('songs')
+          .where('SearchKey',
+              isEqualTo: searchText.substring(0, 1).toUpperCase())
+          .get(),
+      FirebaseFirestore.instance
+          .collection('artist')
+          .where('SearchKey',
+              isEqualTo: searchText.substring(0, 1).toUpperCase())
+          .get()
+    ];
   }
 }

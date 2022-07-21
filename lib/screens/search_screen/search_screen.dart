@@ -16,9 +16,12 @@ class _SearchScreenState extends State<SearchScreen> {
   bool isSearchBarTapped = false;
   List queryResultSet = [];
   List tempSearchStore = [];
+  bool artistFilterState = false;
+  bool songsFilterState = false;
   QuerySnapshot? snapshotData;
+  TextEditingController searchTextController = TextEditingController();
 
-  startSearch(String value) {
+  startSearch(String value, bool artistFilterState, bool songsFilterState) {
     print('the searched text is : $value');
     if (value.isEmpty) {
       setState(() {
@@ -29,7 +32,9 @@ class _SearchScreenState extends State<SearchScreen> {
     var capitalizedValue =
         value.substring(0, 1).toUpperCase() + value.substring(1);
     if (queryResultSet.isEmpty) {
-      SearchFirebaseDatabase().searchMethod(value).then((QuerySnapshot docs) {
+      SearchFirebaseDatabase()
+          .searchMethod(value)[songsFilterState ? 0 : 1]
+          .then((QuerySnapshot docs) {
         print('start searching');
         print(docs.docs.length);
         if (docs.docs.isEmpty) {
@@ -39,7 +44,8 @@ class _SearchScreenState extends State<SearchScreen> {
         } else {
           for (int i = 0; i < docs.docs.length; i++) {
             setState(() {
-              queryResultSet.add(docs.docs[i].get("songName"));
+              queryResultSet.add(docs.docs[i]
+                  .get(songsFilterState ? "songName" : "artistName"));
             });
             print(queryResultSet);
           }
@@ -82,12 +88,13 @@ class _SearchScreenState extends State<SearchScreen> {
             ? Column(
                 children: [
                   TextField(
+                    controller: searchTextController,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                     ),
                     onChanged: (val) {
-                      startSearch(val);
+                      startSearch(val, artistFilterState, songsFilterState);
                     },
                     decoration: InputDecoration(
                       prefixIcon: IconButton(
@@ -121,10 +128,106 @@ class _SearchScreenState extends State<SearchScreen> {
                   const SizedBox(
                     height: 40,
                   ),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            artistFilterState = !artistFilterState;
+                            songsFilterState = false;
+                          });
+                          searchTextController.text.isNotEmpty &&
+                                  artistFilterState
+                              ? startSearch(searchTextController.text,
+                                  artistFilterState, songsFilterState)
+                              : null;
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: artistFilterState
+                                ? SpotifyPlusColors().pureGreen
+                                : Colors.transparent,
+                            border: Border.all(
+                              color: SpotifyPlusColors().pureGrey,
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              36,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'artist',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: SpotifyPlusColors().pureWhite,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            songsFilterState = !songsFilterState;
+                            artistFilterState = false;
+                          });
+                          searchTextController.text.isNotEmpty &&
+                                  songsFilterState
+                              ? startSearch(searchTextController.text,
+                                  artistFilterState, songsFilterState)
+                              : null;
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: songsFilterState
+                                ? SpotifyPlusColors().pureGreen
+                                : Colors.transparent,
+                            border: Border.all(
+                              color: SpotifyPlusColors().pureGrey,
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              36,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'songs',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: SpotifyPlusColors().pureWhite,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
                   queryResultSet.isEmpty
-                      ? Container()
+                      ? SizedBox(
+                          height: 400,
+                          child: buildResultCard(
+                              'no serached items found\nor nothing searched'),
+                        )
                       : SizedBox(
-                          height: MediaQuery.of(context).size.height - 169,
+                          height: MediaQuery.of(context).size.height - 259,
                           child: ListView.builder(
                               itemCount: queryResultSet.length,
                               itemBuilder: (BuildContext context, index) {
