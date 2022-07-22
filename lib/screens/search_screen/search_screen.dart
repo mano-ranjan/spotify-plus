@@ -16,7 +16,7 @@ class _SearchScreenState extends State<SearchScreen> {
   bool isSearchBarTapped = false;
   List queryResultSet = [];
   List tempSearchStore = [];
-  bool artistFilterState = false;
+  bool artistFilterState = true;
   bool songsFilterState = false;
   QuerySnapshot? snapshotData;
   TextEditingController searchTextController = TextEditingController();
@@ -31,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
     var capitalizedValue =
         value.substring(0, 1).toUpperCase() + value.substring(1);
-    if (queryResultSet.isEmpty) {
+    if (true) {
       SearchFirebaseDatabase()
           .searchMethod(value)[songsFilterState ? 0 : 1]
           .then((QuerySnapshot docs) {
@@ -94,7 +94,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       fontSize: 18,
                     ),
                     onChanged: (val) {
-                      startSearch(val, artistFilterState, songsFilterState);
+                      if (artistFilterState || songsFilterState) {
+                        startSearch(val, artistFilterState, songsFilterState);
+                      }
                     },
                     decoration: InputDecoration(
                       prefixIcon: IconButton(
@@ -133,14 +135,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       InkWell(
                         onTap: () {
                           setState(() {
-                            artistFilterState = !artistFilterState;
+                            // artistFilterState = !artistFilterState;
+                            artistFilterState = true;
                             songsFilterState = false;
                           });
-                          searchTextController.text.isNotEmpty &&
-                                  artistFilterState
-                              ? startSearch(searchTextController.text,
-                                  artistFilterState, songsFilterState)
-                              : null;
+                          startSearch(searchTextController.text, true, false);
                         },
                         child: Container(
                           height: 50,
@@ -177,14 +176,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       InkWell(
                         onTap: () {
                           setState(() {
-                            songsFilterState = !songsFilterState;
+                            // songsFilterState = !songsFilterState;
+                            songsFilterState = true;
                             artistFilterState = false;
                           });
-                          searchTextController.text.isNotEmpty &&
-                                  songsFilterState
-                              ? startSearch(searchTextController.text,
-                                  artistFilterState, songsFilterState)
-                              : null;
+                          startSearch(searchTextController.text, false, true);
                         },
                         child: Container(
                           height: 50,

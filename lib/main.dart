@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:spotify_app/firebase_options.dart';
 import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
 import 'package:spotify_app/providers/login_provider/user_data.dart';
@@ -17,6 +19,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Hive.initFlutter;
   runApp(
     MultiProvider(
       providers: [

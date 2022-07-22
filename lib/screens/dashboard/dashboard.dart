@@ -194,7 +194,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   SizedBox(
                                     height: 400,
                                     width: 400,
-                                    child: SpotifyPlusImage().defaultArtistImage,
+                                    child:
+                                        SpotifyPlusImage().defaultArtistImage,
                                   ),
                                   const SizedBox(
                                     height: 40,
@@ -374,7 +375,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                             child: SizedBox(
                                               height: 50,
                                               width: 50,
-                                              child: SpotifyPlusImage().defaultArtistImage,
+                                              child: SpotifyPlusImage()
+                                                  .defaultArtistImage,
                                             ),
                                           ),
                                           const SizedBox(
@@ -406,7 +408,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                 height: 5,
                                               ),
                                               Text(
-                                                SpotifyPlusStrings().defaultName,
+                                                SpotifyPlusStrings()
+                                                    .defaultName,
                                                 style: TextStyle(
                                                   color: SpotifyPlusColors()
                                                       .pureWhite,
