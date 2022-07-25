@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:spotify_app/firebase_options.dart';
+import 'package:spotify_app/models/liked_songs_hive.dart';
 import 'package:spotify_app/providers/login_provider/mobile_otp_login.dart';
 import 'package:spotify_app/providers/login_provider/user_data.dart';
 import 'package:spotify_app/providers/songs_provider/songs_data.dart';
@@ -14,12 +15,13 @@ import 'package:spotify_app/screens/login_screens/login_screen.dart';
 import 'package:spotify_app/routes/routes.dart' as route;
 import 'package:spotify_app/services/navigation_service.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  Hive.initFlutter;
+  await Hive.initFlutter;
+  Hive.registerAdapter(LikedSongsAdapter());
   runApp(
     MultiProvider(
       providers: [
